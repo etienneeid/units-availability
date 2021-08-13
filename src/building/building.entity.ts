@@ -1,6 +1,5 @@
-import { Property } from 'src/property/property.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { City } from './building.model';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { City } from './building-city.enum';
 
 @Entity()
 export class Building {
@@ -13,7 +12,4 @@ export class Building {
     nullable: false,
   })
   city: City;
-
-  @OneToMany(() => Property, (property: Property) => property.building)
-  properties: Property[];
 }

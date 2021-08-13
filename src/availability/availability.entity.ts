@@ -1,21 +1,16 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Property } from 'src/property/property.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Availability {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Property, (property: Property) => property.id)
   @Column({
     name: 'property_id',
     type: 'bigint',
     nullable: false,
   })
   propertyId: number;
-
-  @ManyToOne(() => Property, (property: Property) => property.availabilities)
-  property: Property;
 
   @Column({
     name: 'start_date',

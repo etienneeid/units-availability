@@ -1,5 +1,4 @@
-import { Property } from 'src/property/property.entity';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Reservation {
@@ -26,7 +25,4 @@ export class Reservation {
     nullable: false,
   })
   propertyId: number;
-
-  @OneToOne(() => Property, (property: Property) => property.reservations)
-  property: Property;
 }

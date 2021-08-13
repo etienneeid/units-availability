@@ -1,14 +1,6 @@
-import {
-  Column,
-  Entity,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { Building } from 'src/building/building.entity';
-import { PropertyAmenities, PropertyType } from './property.model';
-import { Availability } from 'src/availability/availability.entity';
-import { Reservation } from 'src/reservation/reservation.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { PropertyAmenities } from './property-amenities.enum';
+import { PropertyType } from './property-type.enum';
 
 @Entity()
 export class Property {
@@ -21,9 +13,6 @@ export class Property {
     nullable: false,
   })
   buildingId: number;
-
-  @OneToOne(() => Building, (building: Building) => building.properties)
-  building: Building;
 
   @Column({
     type: 'text',
@@ -46,16 +35,4 @@ export class Property {
     nullable: false,
   })
   amenities: PropertyAmenities[];
-
-  @OneToMany(
-    () => Availability,
-    (availability: Availability) => availability.property,
-  )
-  availabilities: Availability[];
-
-  @OneToMany(
-    () => Reservation,
-    (reservation: Reservation) => reservation.property,
-  )
-  reservations: Reservation[];
 }
