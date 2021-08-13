@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { getConnectionOptions } from 'typeorm';
+import { AvailabilityModule } from './availability/availability.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { getConnectionOptions } from 'typeorm';
           autoLoadEntities: true,
         }),
     }),
+    AvailabilityModule,
   ],
 })
 export class AppModule {}
