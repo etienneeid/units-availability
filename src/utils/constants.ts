@@ -12,3 +12,11 @@ export const months: { [key: string]: number } = {
   nov: 11,
   dec: 12,
 };
+
+export const fridaySaturdayWeekendCities = ['Dubai'];
+
+export const flexibilityOptionsDays = {
+  weekend: 2,
+  week: 7,
+  month: 30,
+};
