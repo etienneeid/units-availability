@@ -1,7 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { getConnectionOptions } from 'typeorm';
-import { AvailabilityModule } from './modules/availability/availability.module';
+import { AvailabilityModule } from './modules/availability.module';
+import { BuildingModule } from './modules/building.module';
+import { PropertyModule } from './modules/property.module';
+import { ReservationModule } from './modules/reservation.module';
 
 @Module({
   imports: [
@@ -12,6 +15,9 @@ import { AvailabilityModule } from './modules/availability/availability.module';
         }),
     }),
     AvailabilityModule,
+    BuildingModule,
+    PropertyModule,
+    ReservationModule,
   ],
 })
 export class AppModule {}
