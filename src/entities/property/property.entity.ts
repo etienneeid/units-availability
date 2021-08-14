@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { PropertyAmenities } from './property-amenities.enum';
-import { PropertyType } from './property-type.enum';
+import { Amenities } from '../../enums/amenities.enum';
+import { PropertyType } from '../../enums/property-type.enum';
 
 @Entity()
 export class Property {
@@ -31,8 +31,8 @@ export class Property {
 
   @Column({
     type: 'enum',
-    enum: PropertyAmenities,
+    enum: Amenities,
     nullable: false,
   })
-  amenities: PropertyAmenities[];
+  amenities: Amenities[];
 }

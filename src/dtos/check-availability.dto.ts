@@ -7,9 +7,9 @@ import {
   IsOptional,
   ValidateNested,
 } from 'class-validator';
-import { City } from 'src/building/building-city.enum';
-import { PropertyAmenities } from 'src/property/property-amenities.enum';
-import { PropertyType } from 'src/property/property-type.enum';
+import { City } from 'src/enums/city.enum';
+import { Amenities } from 'src/enums/amenities.enum';
+import { PropertyType } from 'src/enums/property-type.enum';
 import { DateFilterDto } from './date-filter.dto';
 import { FlexibleFilterDto } from './flexible-filter.dto';
 
@@ -35,6 +35,6 @@ export class CheckAvailabilityDto {
   @IsNotEmpty()
   @IsArray()
   @ArrayNotEmpty()
-  @IsEnum(PropertyAmenities, { each: true })
-  amenities: PropertyAmenities[];
+  @IsEnum(Amenities, { each: true })
+  amenities: Amenities[];
 }

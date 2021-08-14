@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { getConnectionOptions } from 'typeorm';
-import { AvailabilityModule } from './availability/availability.module';
+import { AvailabilityModule } from './modules/availability/availability.module';
 
 @Module({
   imports: [

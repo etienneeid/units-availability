@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { City } from './building-city.enum';
+import { City } from '../../enums/city.enum';
 
 @Entity()
 export class Building {

@@ -1,4 +1,4 @@
-export enum PropertyAmenities {
+export enum Amenities {
   WiFi = 'WiFi',
   Pool = 'Pool',
   Garden = 'Garden',

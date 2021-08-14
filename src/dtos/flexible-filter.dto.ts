@@ -5,13 +5,13 @@ import {
   IsIn,
   IsNotEmpty,
 } from 'class-validator';
-import { AvailabilityFlexibility } from 'src/availability/availability-flexibility.enum';
+import { FlexibilityType } from 'src/enums/flexibility-type.enum';
 import { months } from 'src/constants';
 
 export class FlexibleFilterDto {
   @IsNotEmpty()
-  @IsEnum(AvailabilityFlexibility)
-  type: AvailabilityFlexibility;
+  @IsEnum(FlexibilityType)
+  type: FlexibilityType;
 
   @IsNotEmpty()
   @IsArray()
