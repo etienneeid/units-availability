@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Property } from './property.entity';
 
 @Entity()
 export class Availability {
@@ -7,7 +14,7 @@ export class Availability {
 
   @Column({
     name: 'property_id',
-    type: 'bigint',
+    type: 'integer',
     nullable: false,
   })
   propertyId: number;
@@ -31,4 +38,10 @@ export class Availability {
     default: false,
   })
   isBlocked: boolean;
+
+  @ManyToOne(() => Property, (property: Property) => property.availabilities, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'property_id' })
+  property: Property;
 }

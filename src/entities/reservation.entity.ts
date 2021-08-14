@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Property } from './property.entity';
 
 @Entity()
 export class Reservation {
@@ -21,8 +28,14 @@ export class Reservation {
 
   @Column({
     name: 'property_id',
-    type: 'bigint',
+    type: 'integer',
     nullable: false,
   })
   propertyId: number;
+
+  @ManyToOne(() => Property, (property: Property) => property.reservations, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'property_id' })
+  property: Property;
 }
