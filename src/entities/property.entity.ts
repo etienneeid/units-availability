@@ -40,6 +40,7 @@ export class Property {
   propertyType: PropertyType;
 
   @Column({
+    array: true,
     type: 'enum',
     enum: Amenities,
     nullable: false,

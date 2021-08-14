@@ -13,14 +13,14 @@ export class Reservation {
   id: number;
 
   @Column({
-    name: 'check_in ',
+    name: 'check_in',
     type: 'date',
     nullable: false,
   })
   checkIn: string;
 
   @Column({
-    name: 'check_out ',
+    name: 'check_out',
     type: 'date',
     nullable: false,
   })
