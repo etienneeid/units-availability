@@ -15,8 +15,8 @@ export const months: { [key: string]: number } = {
 
 export const fridaySaturdayWeekendCities = ['Dubai'];
 
-export const flexibilityOptionsDays = {
-  weekend: 2,
-  week: 7,
-  month: 30,
+export const flexibilityIncrementDays = {
+  weekend: 1,
+  week: 6,
+  month: 29,
 };
