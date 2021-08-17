@@ -1,4 +1,4 @@
-import { flexibilityOptionsDays, months } from 'src/utils/constants';
+import { flexibilityIncrementDays, months } from 'src/utils/constants';
 import { FlexibilityType } from 'src/enums/flexibility-type.enum';
 import { IncompatibleFlexibilityException } from 'src/exceptions/IncompatibleFlexibility.exception';
 
@@ -26,12 +26,12 @@ export const validateFlexibilityTypeVSMonths = (
     currentMonthIndex == months[sortedMonths[0]]
   ) {
     // get the end of month date
-    const endOfMonth = new Date(now.getFullYear(), currentMonthIndex + 1, 0);
+    const endOfMonth = new Date(now.getFullYear(), currentMonthIndex, 0);
 
     // difference in days between today and the end of the month
     const daysDifference = endOfMonth.getDate() - now.getDate();
 
-    const daysToCheck = flexibilityOptionsDays[flexibleType];
+    const daysToCheck = flexibilityIncrementDays[flexibleType];
 
     if (daysToCheck > daysDifference) {
       throw new IncompatibleFlexibilityException();
