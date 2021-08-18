@@ -1,4 +1,4 @@
-import { getDateAddDays } from './getDateAddDays';
+import { addDays } from './addDays';
 
 /**
  * Returns the date of the next closest weekend for the given date
@@ -24,7 +24,7 @@ export const jumpToNextWeekend = (
       diffDays = 7 + diffDays;
     }
 
-    finalDate = getDateAddDays(date, diffDays);
+    finalDate = addDays(date, diffDays);
   }
   return finalDate;
 };
