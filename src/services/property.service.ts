@@ -3,10 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CheckAvailabilityDto } from '../dtos/check-availability.dto';
 import { validateDateAndFlexibility } from 'src/utils/validateDateAndFlexibility';
 import { PropertyRepository } from 'src/repositories/property.repository';
-import {
-  IAlternative,
-  IPropertyAvailabilityCheckResult,
-} from 'src/interfaces/property-availability-check-result.interface';
+import { IPropertyAvailabilityCheckResult } from 'src/interfaces/property-availability-check-result.interface';
 import { getMatchingProperties } from 'src/helpers/property/getMatchingProperties';
 import { getAlternativeProperties } from 'src/helpers/property/getAlternativeProperties';
 
