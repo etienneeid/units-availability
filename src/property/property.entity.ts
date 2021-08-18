@@ -1,16 +1,14 @@
 import {
   Column,
   Entity,
-  JoinColumn,
-  ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Amenities } from '../enums/amenities.enum';
-import { PropertyType } from '../enums/property-type.enum';
-import { Availability } from './availability.entity';
-import { Building } from './building.entity';
-import { Reservation } from './reservation.entity';
+import { Building } from 'src/building/building.entity';
+import { PropertyAmenities, PropertyType } from './property.model';
+import { Availability } from 'src/availability/availability.entity';
+import { Reservation } from 'src/reservation/reservation.entity';
 
 @Entity()
 export class Property {
@@ -19,10 +17,13 @@ export class Property {
 
   @Column({
     name: 'building_id',
-    type: 'integer',
+    type: 'bigint',
     nullable: false,
   })
   buildingId: number;
+
+  @OneToOne(() => Building, (building: Building) => building.properties)
+  building: Building;
 
   @Column({
     type: 'text',
@@ -40,12 +41,11 @@ export class Property {
   propertyType: PropertyType;
 
   @Column({
-    array: true,
     type: 'enum',
-    enum: Amenities,
+    enum: PropertyAmenities,
     nullable: false,
   })
-  amenities: Amenities[];
+  amenities: PropertyAmenities[];
 
   @OneToMany(
     () => Availability,
@@ -58,10 +58,4 @@ export class Property {
     (reservation: Reservation) => reservation.property,
   )
   reservations: Reservation[];
-
-  @ManyToOne(() => Building, (building: Building) => building.properties, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'building_id' })
-  building: Building;
 }
