@@ -16,7 +16,8 @@ export const getIntervalStartDate = (firstMonth: string): string => {
   const intervalStartYear = now.getFullYear();
 
   if (currentMonthIndex == months[firstMonth]) {
-    intervalStartDate = now.toISOString().split('T')[0];
+    const nowSplit = now.toLocaleDateString().split('/');
+    intervalStartDate = `${nowSplit[2]}-${nowSplit[0]}-${nowSplit[1]}`;
   } else if (currentMonthIndex > months[firstMonth]) {
     intervalStartDate = `${intervalStartYear + 1}-${months[firstMonth]}-01`;
   } else {
@@ -43,5 +44,9 @@ export const getIntervalEndDate = (lastMonth: string): string => {
     year = year + 1;
   }
 
-  return new Date(year, months[lastMonth], 0).toISOString().split('T')[0];
+  const endDateSplit = new Date(year, months[lastMonth], 0)
+    .toLocaleDateString()
+    .split('/');
+
+  return `${endDateSplit[2]}-${endDateSplit[0]}-${endDateSplit[1]}`;
 };
