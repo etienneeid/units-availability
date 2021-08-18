@@ -1,4 +1,4 @@
-import { Brackets, getManager } from 'typeorm';
+import { getManager } from 'typeorm';
 import { CheckAvailabilityDto } from 'src/dtos/check-availability.dto';
 import { Property } from 'src/entities/property.entity';
 import { IAlternative } from 'src/interfaces/property-availability-check-result.interface';
