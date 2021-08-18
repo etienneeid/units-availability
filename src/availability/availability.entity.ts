@@ -1,23 +1,21 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { Property } from './property.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Property } from 'src/property/property.entity';
 
 @Entity()
 export class Availability {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @ManyToOne(() => Property, (property: Property) => property.id)
   @Column({
     name: 'property_id',
-    type: 'integer',
+    type: 'bigint',
     nullable: false,
   })
   propertyId: number;
+
+  @ManyToOne(() => Property, (property: Property) => property.availabilities)
+  property: Property;
 
   @Column({
     name: 'start_date',
@@ -38,10 +36,4 @@ export class Availability {
     default: false,
   })
   isBlocked: boolean;
-
-  @ManyToOne(() => Property, (property: Property) => property.availabilities, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'property_id' })
-  property: Property;
 }
