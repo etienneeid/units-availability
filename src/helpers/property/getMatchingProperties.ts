@@ -155,8 +155,6 @@ export const getMatchingProperties = async (
         }),
       )
       .setParameters({ startDate, weekendStartDayIndex, flexibilityTypeDays });
-
-    console.log(endDate);
   }
 
   matchQuery
