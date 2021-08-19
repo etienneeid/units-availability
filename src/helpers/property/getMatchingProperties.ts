@@ -84,10 +84,10 @@ export const getMatchingProperties = async (
         : 6;
     }
 
-    // sub-query to replace reservation3.checkout by startDate incase it's null
+    // sub-query to replace unavailability.endDate by startDate incase it's null
     const coalesceStartDate = await getManager()
       .createQueryBuilder(Property, 'prop2')
-      .select(`COALESCE(reservation3.checkOut + interval '1 day', :startDate)`)
+      .select(`COALESCE(unavailability.endDate + interval '1 day', :startDate)`)
       .limit(1);
 
     // sub-query to jump to next weekend
@@ -127,9 +127,19 @@ export const getMatchingProperties = async (
 
     matchQuery
       .leftJoin(
-        'property.reservations',
-        'reservation3',
-        `reservation3.checkOut BETWEEN :startDate::date AND :endDate::date - :flexibilityTypeDays * interval '1 day'`,
+        `(SELECT
+          property_id AS propertyId,
+          check_in AS startDate,
+          check_out AS endDate
+        FROM reservation
+        UNION
+        SELECT
+          property_id AS propertyId,
+          start_date AS startDate,
+          end_date AS endDate
+        FROM availability)`,
+        'unavailability',
+        `unavailability.propertyId = property.id AND unavailability.endDate BETWEEN :startDate::date AND :endDate::date - :flexibilityTypeDays * interval '1 day'`,
         {
           startDate,
           endDate,
