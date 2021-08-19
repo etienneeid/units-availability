@@ -40,8 +40,11 @@ export class PropertyService {
         getAlternativeProperties(checkAvailabilityDto),
       ];
       if (checkAvailabilityDto.apartmentType) {
-        delete checkAvailabilityDto.apartmentType;
-        promises.push(getMatchingProperties(checkAvailabilityDto));
+        const otherCheckAvailabilityDto = {
+          ...checkAvailabilityDto,
+          apartmentType: undefined,
+        };
+        promises.push(getMatchingProperties(otherCheckAvailabilityDto));
       }
       const [alternative, other] = await Promise.all(promises);
 
