@@ -75,8 +75,7 @@ export const getAlternativeProperties = async (
   const flexibilityReservationStartDate = await getManager()
     .createQueryBuilder(Property, 'prop')
     .select(
-      `
-        CASE
+      `CASE
           WHEN NOT :weekendStartDayIndex > 0
             THEN (${coalesceStartDate.getQuery()})
             ELSE CASE 
@@ -160,6 +159,7 @@ export const getAlternativeProperties = async (
     .getRawMany();
 
   return alternativeResult.map((element) => {
+    console.log(element.availableStarting);
     return {
       ...element,
       availableStarting: formatDbDate(element.availableStarting),
