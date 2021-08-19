@@ -124,7 +124,8 @@ export const getAlternativeProperties = async (
         property_id AS propertyId,
         start_date AS startDate,
         end_date AS endDate
-      FROM availability)`,
+      FROM availability
+      WHERE is_blocked = true)`,
       'unavailability',
       `unavailability.propertyId = property.id AND unavailability.endDate >= :startDate::date`,
       {
@@ -156,10 +157,8 @@ export const getAlternativeProperties = async (
 
   const alternativeResult = await alternativeQuery
     .orderBy(`(${coalesceStartDate.getQuery()})`, 'ASC')
-    // .groupBy('property.id')
     .getRawMany();
 
-  // return alternativeResult;
   return alternativeResult.map((element) => {
     return {
       ...element,

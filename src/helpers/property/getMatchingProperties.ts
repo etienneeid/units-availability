@@ -137,7 +137,8 @@ export const getMatchingProperties = async (
           property_id AS propertyId,
           start_date AS startDate,
           end_date AS endDate
-        FROM availability)`,
+        FROM availability
+        WHERE is_blocked = true)`,
         'unavailability',
         `unavailability.propertyId = property.id AND unavailability.endDate BETWEEN :startDate::date AND :endDate::date - :flexibilityTypeDays * interval '1 day'`,
         {
