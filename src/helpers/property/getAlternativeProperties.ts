@@ -65,18 +65,17 @@ export const getAlternativeProperties = async (
 
   startDate = addDays(startDate, 1);
 
-  // sub-query to replace reservation3.checkout by startDate incase it's null
+  // sub-query to replace unavailability.endDate by startDate incase it's null
   const coalesceStartDate = await getManager()
     .createQueryBuilder(Property, 'prop2')
-    .select(`COALESCE(reservation3.checkOut + interval '1 day', :startDate)`)
+    .select(`COALESCE(unavailability.endDate + interval '1 day', :startDate)`)
     .limit(1);
 
   // sub-query to jump to next weekend
   const flexibilityReservationStartDate = await getManager()
     .createQueryBuilder(Property, 'prop')
     .select(
-      `
-        CASE
+      `CASE
           WHEN NOT :weekendStartDayIndex > 0
             THEN (${coalesceStartDate.getQuery()})
             ELSE CASE 
@@ -114,9 +113,20 @@ export const getAlternativeProperties = async (
 
   alternativeQuery
     .leftJoin(
-      'property.reservations',
-      'reservation3',
-      `reservation3.checkOut >= :startDate::date`,
+      `(SELECT
+        property_id AS propertyId,
+        check_in AS startDate,
+        check_out AS endDate
+      FROM reservation
+      UNION
+      SELECT
+        property_id AS propertyId,
+        start_date AS startDate,
+        end_date AS endDate
+      FROM availability
+      WHERE is_blocked = true)`,
+      'unavailability',
+      `unavailability.propertyId = property.id AND unavailability.endDate >= :startDate::date`,
       {
         startDate,
         nbOfDays,
@@ -146,11 +156,10 @@ export const getAlternativeProperties = async (
 
   const alternativeResult = await alternativeQuery
     .orderBy(`(${coalesceStartDate.getQuery()})`, 'ASC')
-    // .groupBy('property.id')
     .getRawMany();
 
-  // return alternativeResult;
   return alternativeResult.map((element) => {
+    console.log(element.availableStarting);
     return {
       ...element,
       availableStarting: formatDbDate(element.availableStarting),
