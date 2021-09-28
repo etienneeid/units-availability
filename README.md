@@ -8,7 +8,7 @@ It allows the guests to check the availability of units with extra flexibility, 
 
 If running the service locally:
 * Make sure to have a local relational DB server installed and running
-* Create ormconfig.env in the root directory of the service (check ormconfig.example.env for reference
+* Create ormconfig.env in the root directory of the service (check ormconfig.example.env for reference)
 
 ## Installation
 
